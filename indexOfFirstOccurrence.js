@@ -8,7 +8,8 @@ var strStr = function(haystack, needle) {
     let needleArray = needle.split("")
 
     for (let i = 0; i < haystack.length; i++) {
-        const partOfHaystack = haystackArray.slice(i, needleArray.length)
+        const partOfHaystack = haystackArray.slice(i, i + needleArray.length)
+        // console.log(`partOfHaystack : ${partOfHaystack}`)
         if (partOfHaystack.join("") === needle) {
             return i
         }
