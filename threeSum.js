@@ -4,6 +4,7 @@
  */
 var isValid = function(s) {
     if (s.length === 1) return false
+
     const firstChar = s.charAt(0)
 
     let roundBracketStartCount = 0
@@ -13,47 +14,27 @@ var isValid = function(s) {
     let squareBracketStartCount = 0
     let squareBracketEndCount = 0
 
-    // let canCloseRoundBracket = false
-    // let canCloseCurlyBracket = false
-    // let canCloseSquareBracket = false
-
     let previousChar = ""
-
-    // if (firstChar === "(") {
-    //     canCloseRoundBracket = true
-    // } else if (firstChar === "{") {
-    //     canCloseCurlyBracket = true
-    // } else if (firstChar === "[") {
-    //     canCloseSquareBracket = true
-    // }
 
     for (let i = 0; i < s.length; i++) {
         const currentChar = s.charAt(i)
 
         if (currentChar === "(") {
             roundBracketStartCount += 1
-            // canCloseRoundBracket = true
         } else if (currentChar === ")") {
             if (previousChar === "{" || previousChar === "[") {
                 return false
             }
 
-            // if (canCloseRoundBracket) {
-                roundBracketEndCount += 1
-                // canCloseRoundBracket = false
-            // }
+            roundBracketEndCount += 1
         } else if (currentChar === "{") {
             curlyBracketStartCount += 1
-            // canCloseCurlyBracket = true
         } else if (currentChar === "}") {
             if (previousChar === "(" || previousChar === "[") {
                 return false
             }
 
-            // if (canCloseCurlyBracket) {
-                curlyBracketEndCount += 1
-                // canCloseCurlyBracket = false
-            // }
+            curlyBracketEndCount += 1
         } else if (currentChar === "[") {
             squareBracketStartCount += 1
             canCloseSquareBracket = true
@@ -62,10 +43,15 @@ var isValid = function(s) {
                 return false
             }
 
-            // if (canCloseSquareBracket) {
-                squareBracketEndCount += 1
-                // canCloseSquareBracket = false
-            // }
+            squareBracketEndCount += 1
+        }
+
+        if (
+            squareBracketEndCount > squareBracketStartCount ||
+            curlyBracketEndCount > curlyBracketStartCount ||
+            roundBracketEndCount > roundBracketStartCount
+        ) {
+            return false
         }
 
         previousChar = currentChar
@@ -86,3 +72,4 @@ console.log(`] : ${isValid("]") === false}`)
 console.log(`)(){} : ${isValid(")(){}") === false}`)
 console.log(`[]) : ${isValid("[])") === false}`)
 console.log(`(([]){}) : ${isValid("(([]){})") === true}`)
+console.log(`(){}}{ : ${isValid("(){}}{") === false}`)
