@@ -4,13 +4,14 @@
  * @return {number}
  */
 var strStr = function(haystack, needle) {
+    if (!haystack.includes(needle)) return -1
+
     let haystackArray = haystack.split("")
     let needleArray = needle.split("")
 
     for (let i = 0; i < haystack.length; i++) {
-        const partOfHaystack = haystackArray.slice(i, i + needleArray.length)
-        // console.log(`partOfHaystack : ${partOfHaystack}`)
-        if (partOfHaystack.join("") === needle) {
+        const partFromLeft = haystackArray.slice(i, i + needleArray.length)
+        if (partFromLeft.join("") === needle) {
             return i
         }
     }
