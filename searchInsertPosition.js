@@ -4,10 +4,10 @@
  * @return {number}
  */
 var searchInsert = function(nums, target) {
-    if (nums[0] === target) {
-        return 0
-    }
-    if (nums[0] > target) {
+    if (
+        nums[0] === target ||
+        nums[0] > target
+    ) {
         return 0
     }
     if (nums[nums.length - 1] < target) {
@@ -17,51 +17,13 @@ var searchInsert = function(nums, target) {
         return nums.length - 1
     }
 
-    let leftIndex = Math.floor(nums.length / 2)
-    let rightIndex = Math.floor(nums.length / 2)
-
     for (let i = 0; i < nums.length; i++) {
-        if (nums[leftIndex] === target) {
-            return leftIndex
-        }
-
-        if (nums[leftIndex - 1] < target && target < nums[leftIndex]) {
-            return leftIndex
-        }
-
-        if (nums[leftIndex - 1] === target) {
-            return leftIndex - 1
-        }
-
-        if (nums[rightIndex] === target) {
-            return rightIndex
-        }
-
-        if (nums[rightIndex - 1] < target && target < nums[rightIndex]) {
-            return rightIndex
-        }
-
-        if (nums[i] == target) {
+        if (nums[i] == target || nums[i] > target) {
             return i
         }
-
-        if (nums[i - 1] < target && target < nums[i]) {
-            return i
-        }
-
-        if (nums[nums.length - 1 - i] == target) {
-            return nums.length - 1 - i
-        }
-
-        if (nums[nums.length - 2 - i] < target && target < nums[nums.length - 1 - i]) {
-            return nums.length - 1 - i
-        }
-
-        leftIndex = Math.floor(leftIndex / 2)
-        rightIndex = Math.floor(nums.length - leftIndex)
     }
 
-    return leftIndex
+    return nums.length
 };
 
 console.log(`[1,3,5,6], 5 : ${searchInsert([1,3,5,6], 5) === 2}, ${searchInsert([1,3,5,6], 5)}`)
