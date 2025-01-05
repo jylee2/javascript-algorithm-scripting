@@ -21,6 +21,10 @@ var searchInsert = function(nums, target) {
         if (nums[i] == target || nums[i] > target) {
             return i
         }
+
+        if (nums[nums.length - 1 - i] === target) {
+            return nums.length - 1 - i
+        }
     }
 
     return nums.length
