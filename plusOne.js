@@ -15,14 +15,19 @@ var plusOne = function(digits) {
     }
 
     for (let i = 0; i < digits.length; i++) {
-        if (digits[digits.length - i] === 9 || digits[digits.length - i] === 10) {
-            digits[digits.length - i] = 0
-            digits[digits.length - i - 1] = digits[digits.length - i - 1] + 1
+        if (digits[digits.length - 1 - i] === 9) {
+            digits[digits.length - 1 - i] = 0
+            digits[digits.length - 2 - i] = digits[digits.length - 2 - i] + 1
+        }
+        if (digits[digits.length - 2 - i] === 10) {
+            digits[digits.length - 2 - i] = 0
+            digits[digits.length - 3 - i] = digits[digits.length - 3 - i] + 1
+        } else {
+            break
         }
     }
 
-    if (digits[0] === 10) {
-        digits[0] = 0
+    if (digits[0] === 0) {
         digits.unshift(1)
     }
 
