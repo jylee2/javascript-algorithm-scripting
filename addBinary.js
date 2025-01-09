@@ -11,7 +11,8 @@ var addBinary = function(a, b) {
         longerString = a
     }
 
-    if (!a.includes("1") && !b.includes("1")) {
+    // No "0" in either strings
+    if (!shorterString.includes("1") && !longerString.includes("1")) {
         let result = ""
         
         for (let i = 0; i < longerString.length; i++) {
@@ -21,6 +22,7 @@ var addBinary = function(a, b) {
         return result
     }
 
+    // Make both strings the same length
     for (let i = 0; i < longerString.length; i++) {
         if (shorterString.length < longerString.length) {
             shorterString = "0" + shorterString
@@ -28,6 +30,17 @@ var addBinary = function(a, b) {
         if (shorterString.length === longerString.length) {
             break
         }
+    }
+
+    // No "1" in either strings
+    if (!shorterString.includes("0") && !longerString.includes("0")) {
+        let result = ""
+        
+        for (let i = 0; i < longerString.length; i++) {
+            result = "1" + result
+        }
+
+        return result + "0"
     }
 
     let result = ""
