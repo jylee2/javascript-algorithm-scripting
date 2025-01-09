@@ -25,16 +25,23 @@ var addBinary = function(a, b) {
     for (let i = 0; i < longerString.length; i++) {
         // console.log(`------ i: ${i}, isTen: ${isTen}, ${shorterString} : ${shorterString.charAt(longerString.length - 1 - i)}, ${longerString} : ${longerString.charAt(longerString.length - 1 - i)}`)
 
+        // Previously added "10" to the front of result
         if (isTen) {
             isTen = false
 
-            // Previously added "10" to the front of result
             if (
                 (shorterString.charAt(longerString.length - 1 - i) === "1" && longerString.charAt(longerString.length - 1 - i) === "0") ||
                 (shorterString.charAt(longerString.length - 1 - i) === "0" && longerString.charAt(longerString.length - 1 - i) === "1")
             ) {
                 result = result.slice(1) // remove the "1" at the front
                 result = "10" + result
+                isTen = true
+                continue
+            }
+
+            if (shorterString.charAt(longerString.length - 1 - i) === "1" && longerString.charAt(longerString.length - 1 - i) === "1") {
+                result = result.slice(1) // remove the "1" at the front
+                result = "11" + result
                 isTen = true
                 continue
             }
@@ -65,6 +72,7 @@ var addBinary = function(a, b) {
     return result
 };
 
-console.log(`"11", "1" : ${addBinary("11", "1") == "100"}, ${addBinary("11", "1")}`)
-console.log(`"1010", "1011" : ${addBinary("1010", "1011") == "10101"}, ${addBinary("1010", "1011")}`)
-console.log(`"1", "111" : ${addBinary("1", "111") == "1000"}, ${addBinary("1", "111")}`)
+console.log(`"11", "1" = "100" : ${addBinary("11", "1") == "100"}, ${addBinary("11", "1")}`)
+console.log(`"1010", "1011" = "10101" : ${addBinary("1010", "1011") == "10101"}, ${addBinary("1010", "1011")}`)
+console.log(`"1", "111" = "1000" : ${addBinary("1", "111") == "1000"}, ${addBinary("1", "111")}`)
+console.log(`"1111", "1111" = "11110" : ${addBinary("1111", "1111") == "11110"}, ${addBinary("1111", "1111")}`)
