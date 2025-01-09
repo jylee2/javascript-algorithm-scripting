@@ -11,6 +11,16 @@ var addBinary = function(a, b) {
         longerString = a
     }
 
+    if (!a.includes("1") && !b.includes("1")) {
+        let result = ""
+        
+        for (let i = 0; i < longerString.length; i++) {
+            result = "0" + result
+        }
+
+        return result
+    }
+
     for (let i = 0; i < longerString.length; i++) {
         if (shorterString.length < longerString.length) {
             shorterString = "0" + shorterString
@@ -23,8 +33,6 @@ var addBinary = function(a, b) {
     let result = ""
     let isTen = false
     for (let i = 0; i < longerString.length; i++) {
-        // console.log(`------ i: ${i}, isTen: ${isTen}, ${shorterString} : ${shorterString.charAt(longerString.length - 1 - i)}, ${longerString} : ${longerString.charAt(longerString.length - 1 - i)}`)
-
         // Previously added "10" to the front of result
         if (isTen) {
             isTen = false
@@ -66,7 +74,6 @@ var addBinary = function(a, b) {
             result = "10" + result
             isTen = true
         }
-
     }
 
     return result
