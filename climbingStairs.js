@@ -1,3 +1,5 @@
+// Reference: https://wiki.c2.com/?FibonacciSequence
+
 function nthFibonacci(n){
     const phi = (1 + Math.sqrt(5)) / 2
     const negativePhi = (1 - Math.sqrt(5)) / 2
