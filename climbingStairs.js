@@ -1,12 +1,8 @@
 function nthFibonacci(n){
-    // Base case: if n is 0 or 1, return n
-    if (n <= 1) {
-        return n;
-    }
+    const phi = (1 + Math.sqrt(5)) / 2
+    const negativePhi = (1 - Math.sqrt(5)) / 2
     
-    // Recursive case: sum of the two preceding Fibonacci
-    // numbers
-    return nthFibonacci(n - 1) + nthFibonacci(n - 2);
+    return (Math.pow(phi, n) - Math.pow(negativePhi, n)) / Math.sqrt(5)
 }
 
 /**
@@ -15,7 +11,7 @@ function nthFibonacci(n){
  */
 var climbStairs = function(n) {
     if (n == 1) return 1
-    return nthFibonacci(n + 1)
+    return Math.floor(nthFibonacci(n + 1))
 };
 
 console.log(`1 : ${climbStairs(1) === 1}, ${climbStairs(1)}`)
