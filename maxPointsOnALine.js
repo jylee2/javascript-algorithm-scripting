@@ -3,10 +3,6 @@ function getSlope(y2, y1, x2, x1) {
         return null
     }
 
-    if (y2 - y1 === 0) {
-        return null
-    }
-
     return (y2 - y1) / (x2 - x1)
 }
 
@@ -39,9 +35,6 @@ var maxPoints = function(points) {
 
                 if (!slope) {
                     slope = getSlope(y1, y2, x1, x2)
-                }
-                if (!slope) {
-                    continue
                 }
 
                 const intercept = getIntercept(y1, slope, x1)
@@ -80,3 +73,5 @@ console.log(`=====================`)
 console.log(`[[0,0]] : ${maxPoints([[0,0]])}, should be 1`)
 console.log(`=====================`)
 console.log(`[[1,0],[0,0]] : ${maxPoints([[1,0],[0,0]])}, should be 2`)
+console.log(`=====================`)
+console.log(`[[2,3],[3,3],[-5,3]] : ${maxPoints([[2,3],[3,3],[-5,3]])}, should be 3`)
