@@ -37,24 +37,36 @@ var maxPoints = function(points) {
                 if (!slope) {
                     continue
                 }
-                
+
                 const intercept = getIntercept(y1, slope, x1)
 
-                console.log(`slope: ${slope}, intercept: ${intercept}`)
-
-                if (tempMap[`${slope}-${intercept}`]) {
-                    tempMap[`${slope}-${intercept}`] = tempMap[`${slope}-${intercept}`] + 1
+                if (!tempMap[`${slope}-${intercept}`]) {
+                    tempMap[`${slope}-${intercept}`] = [{x: x1, y: y1}, {x: x2, y: y2}]
                 } else {
-                    tempMap[`${slope}-${intercept}`] = 1
+                    tempMap[`${slope}-${intercept}`].push({x: x1, y: y1})
+                    tempMap[`${slope}-${intercept}`].push({x: x2, y: y2})
                 }
             }
         }
     }
 
-    console.log(`---Object.values(tempMap): ${Object.values(tempMap)}`)
-    const maxValue = Math.max(...Object.values(tempMap))
+    let pointsWithSameSlope = []
+    Object.values(tempMap).forEach(array => {
+        const flattened = array.flat()
+        if (flattened.length > pointsWithSameSlope.length) {
+            pointsWithSameSlope = flattened
+        }
+    })
+
+    let tempMap2 = {}
+    pointsWithSameSlope.forEach(pos => {
+        tempMap2[`${pos.x}-${pos.y}`] = pos
+    })
+
+    const maxValue = Object.keys(tempMap2).length
     return maxValue
 };
 
-console.log(`[[1,1],[2,2],[3,3]] : ${maxPoints([[1,1],[2,2],[3,3]]) === 3}, ${maxPoints([[1,1],[2,2],[3,3]])}`)
-console.log(`[[1,1],[3,2],[5,3],[4,1],[2,3],[1,4]] : ${maxPoints([[1,1],[3,2],[5,3],[4,1],[2,3],[1,4]]) === 4}, ${maxPoints([[1,1],[3,2],[5,3],[4,1],[2,3],[1,4]])}`)
+console.log(`[[1,1],[2,2],[3,3]] : ${maxPoints([[1,1],[2,2],[3,3]])}, should be 3`)
+console.log(`=====================`)
+console.log(`[[1,1],[3,2],[5,3],[4,1],[2,3],[1,4]] : ${maxPoints([[1,1],[3,2],[5,3],[4,1],[2,3],[1,4]])}, should be 4`)
