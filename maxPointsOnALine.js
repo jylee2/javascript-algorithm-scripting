@@ -23,9 +23,11 @@ var maxPoints = function(points) {
     if (points.length === 1) {
         return 1
     }
+    if (points.length === 2) {
+        return 2
+    }
 
     let tempMap = {}
-
     for (let i = 0; i < points.length; i++) {
         for (let j = 0; j < points.length; j++) {
             if (j > i) {
@@ -76,3 +78,5 @@ console.log(`=====================`)
 console.log(`[[1,1],[3,2],[5,3],[4,1],[2,3],[1,4]] : ${maxPoints([[1,1],[3,2],[5,3],[4,1],[2,3],[1,4]])}, should be 4`)
 console.log(`=====================`)
 console.log(`[[0,0]] : ${maxPoints([[0,0]])}, should be 1`)
+console.log(`=====================`)
+console.log(`[[1,0],[0,0]] : ${maxPoints([[1,0],[0,0]])}, should be 2`)
