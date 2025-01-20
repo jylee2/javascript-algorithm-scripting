@@ -20,6 +20,10 @@ function getIntercept(y, slope, x) {
  * @return {number}
  */
 var maxPoints = function(points) {
+    if (points.length === 1) {
+        return 1
+    }
+
     let tempMap = {}
 
     for (let i = 0; i < points.length; i++) {
@@ -70,3 +74,5 @@ var maxPoints = function(points) {
 console.log(`[[1,1],[2,2],[3,3]] : ${maxPoints([[1,1],[2,2],[3,3]])}, should be 3`)
 console.log(`=====================`)
 console.log(`[[1,1],[3,2],[5,3],[4,1],[2,3],[1,4]] : ${maxPoints([[1,1],[3,2],[5,3],[4,1],[2,3],[1,4]])}, should be 4`)
+console.log(`=====================`)
+console.log(`[[0,0]] : ${maxPoints([[0,0]])}, should be 1`)
