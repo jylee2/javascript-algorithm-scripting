@@ -6,7 +6,6 @@
  * @return {void} Do not return anything, modify nums1 in-place instead.
  */
 var merge = function(nums1, m, nums2, n) {
-    
     let firstPointer = m - 1
     let secondPointer = n - 1
     let i = m + n - 1
