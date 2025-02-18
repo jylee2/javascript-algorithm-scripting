@@ -3,81 +3,65 @@
  * @return {number}
  */
 
-const buildGraph = (size, edges) => {
-    const graph = Array.from({
-            length: size
-        },
-        () => []
-    )
-
-    for (let edge of edges) {
-        let [key, value] = edge
-        graph[key].push(value)
-    }
-
-    return graph
-}
-
-const breadthFirstSearch = (graph, start) => {
-    const queue = [start]
-    const visited = new Set()
-
-    while (queue.length) {
-        const currentNode = queue.shift()
-
-        if (!visited.has(currentNode)) {
-            visited.add(currentNode)
-
-            for (let neighbour of graph[currentNode]) {
-                if (!visited.has(neighbour)) {
-                    queue.push(neighbour)
-                }
-            }
-        }
-    }
-}
-
 var numIslands = function (grid) {
-    let islands = 0;
-    const visited = new Set();
-    const rows = grid.length;
-    const cols = grid[0].length;
+    let numberOfIslands = 0
+    const visited = new Set()
+    const rows = grid.length
+    const columns = grid[0].length
 
-    const bfs = (r, c) => {
-        const q = [];
-        visited.add(`${r},${c}`);
-        q.push([r, c]);
+    const isIsland = (row, column) => {
+        return grid[row][column] === "1" &&
+            !visited.has(`${row},${column}`)
+    }
 
-        while (q.length > 0) {
-            const [row, col] = q.shift();
-            const directions = [
-                [1, 0],
-                [-1, 0],
-                [0, 1],
-                [0, -1]
-            ];
+    const isWithinGrid = (row, column) => {
+        return row >= 0 &&
+            row < rows &&
+            column >= 0 &&
+            column < columns
+    }
 
-            for (const [dr, dc] of directions) {
-                const nr = row + dr;
-                const nc = col + dc;
-                if (nr >= 0 && nr < rows && nc >= 0 && nc < cols && grid[nr][nc] === "1" && !visited.has(`${nr},${nc}`)) {
-                    q.push([nr, nc]);
-                    visited.add(`${nr},${nc}`);
+    const breadthFirstSearch = (row, column) => {
+        const north = [0, -1]
+        const south = [0, 1]
+        const east = [1, 0]
+        const west = [-1, 0]
+        const searchDirections = [north, south, east, west]
+
+        const queue = []
+        queue.push([row, column])
+        visited.add(`${row},${column}`)
+
+        while (queue.length) {
+            const [currentRow, currentCol] = queue.shift()
+
+            for (let direction of searchDirections) {
+                const [x, y] = direction
+                const tempRow = currentRow + x
+                const tempCol = currentCol + y
+
+                if (
+                    isWithinGrid(tempRow, tempCol) &&
+                    grid[tempRow]?.[tempCol] === "1" &&
+                    !visited.has(`${tempRow},${tempCol}`)
+                ) {
+                    queue.push([tempRow, tempCol])
+                    visited.add(`${tempRow},${tempCol}`)
                 }
-            }
-        }
-    };
-
-    for (let r = 0; r < rows; r++) {
-        for (let c = 0; c < cols; c++) {
-            if (grid[r][c] === "1" && !visited.has(`${r},${c}`)) {
-                islands += 1;
-                bfs(r, c);
             }
         }
     }
 
-    return islands;
+    for (let row = 0; row < rows; row++) {
+        for (let column = 0; column < columns; column++) {
+            if (isIsland(row, column)) {
+                breadthFirstSearch(row, column)
+                numberOfIslands++
+            }
+        }
+    }
+
+    return numberOfIslands
 };
 
 console.log(`${numIslands([
